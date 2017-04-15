@@ -7,6 +7,7 @@
     "scss": "node-sass src/client/scss -r -o css/develop"
   },
   "dependencies": {
+    "normalize.css": "^6.0.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },
