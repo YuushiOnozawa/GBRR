@@ -3,35 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/6.0.0/normalize.min.css">
+    <link rel="stylesheet" href="css/develop/style.css">
 </head>
 <body>
-<header>
-    <h1>GBRR - GrundblueFantasy Raid Radar</h1>
+<header class="header">
+    <h1 class="pageTitle">GBRR - GrundblueFantasy Raid Radar</h1>
 </header>
-<div id="mainContent">
+<div id="mainContent" class="mainContent">
     <form>
-        <select multiple id="bossLists">
+        <select multiple id="bossList" class="bossList">
             <option value="0">BOSS</option>
             <option value="1">BOSS</option>
             <option value="2">BOSS</option>
         </select>
     </form>
-    <ul id="currentList">
+    <ul id="selectedList" class="selectedList">
         <li>BOSS1</li>
         <li>BOSS1</li>
         <li>BOSS1</li>
     </ul>
-    <ul id="idList">
+    <ul id="idLists" class="idLists">
         <li>
-            <p class="bossName">BOSSNAME<span class="timeLeft">1 min ago</span></p>
-            <p class="raidId">xxxxxxxx</p>
-            <p class="copyBtn">Copy Id</p>
+            <ul class="idList">
+                <li>
+                    <p class="bossName">BOSSNAME<span class="timeLeft">1 min ago</span></p>
+                    <p class="raidId">xxxxxxxx</p>
+                    <p class="copyBtn">Copy Id</p>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul class="idList">
+                <li>
+                    <p class="bossName">BOSSNAME<span class="timeLeft">1 min ago</span></p>
+                    <p class="raidId">xxxxxxxx</p>
+                    <p class="copyBtn">Copy Id</p>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <ul class="idList">
+                <li>
+                    <p class="bossName">BOSSNAME<span class="timeLeft">1 min ago</span></p>
+                    <p class="raidId">xxxxxxxx</p>
+                    <p class="copyBtn">Copy Id</p>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>
-<footer>
-    <p>Copyright. hogehoge</p>
+<footer class="footer">
+    <p class="copyText">Copyright. hogehoge</p>
 </footer>
 </body>
 <script type="text/javascript" src="./js/develop/client.js"></script>
