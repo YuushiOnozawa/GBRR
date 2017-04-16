@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "webpack": "webpack",
-    "scss": "node makeImportScss.js && node-sass src/client/scss -r -o css/develop"
+    "scss": "npm run scss:build",
+    "scss:build": "node makeImportScss.js && node-sass src/client/scss -r -o css/interdemite",
+    "scss:postcss": "postcss --use autoprefixer --autoprefixer.browsers '\"last 2 versions\"' -d css/interdemite/ css/interdemite/**/*.css",
+    "scss:csso": "postcss --use cssnano -d css/develop/ css/interdemite/**/*.css"
   },
   "dependencies": {
     "normalize.css": "^6.0.0",
@@ -12,15 +15,24 @@
     "react-dom": "^15.5.4"
   },
   "devDependencies": {
+    "autoprefixer": "^6.7.7",
+    "autoprefixer-cli": "^1.0.0",
     "babel-core": "^6.24.1",
     "babel-loader": "^6.4.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "clean-css": "^4.0.12",
     "css-loader": "^0.28.0",
+    "cssnano": "^3.10.0",
+    "cssnano-cli": "^1.0.5",
+    "csso": "^3.0.1",
+    "csso-cli": "^1.0.0",
     "del": "^2.2.2",
     "glob": "^7.1.1",
     "node-sass": "^4.5.2",
+    "postcss": "^5.2.17",
+    "postcss-cli": "^3.1.1",
+    "postcss-csso": "^2.0.0",
     "style-loader": "^0.16.1",
     "webpack": "^2.3.3"
   }

@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     entry: {
@@ -17,10 +18,19 @@ module.exports = {
             },
             {
                 test: /\.css/,
-                loaders: ['style-loader', 'css-loader?modules']
+                loaders: ['style-loader', 'css-loader?modules', 'autoprefixer-loader', 'csso-loader']
             }
         ]
     },
+    plugins: [
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                autoprefixer: {
+                    browsers: 'last 2 version'
+                }
+            }
+        })
+    ],
     resolve: {
         extensions: ['.js', '.jsx']
     }

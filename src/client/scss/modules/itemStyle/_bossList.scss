@@ -14,13 +14,22 @@
             column-count: 2;
             column-width: 300px;
         }
+
+        > li {
+            border-right: 2px dotted $listBorderColor;
+            padding: 0px 10px 0px 5px;
+            width: 320px;
+        }
     }
 
     .idList {
         width: 100%;
         display: block;
-        border-bottom: 2px dotted $listBorderColor;
         position: relative;
+
+        > li {
+            border-bottom: 2px dotted $listBorderColor;
+        }
     }
 
     .bossName {
