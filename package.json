@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "cssnano": "cssnano -h",
+    "server": "babel-node src/server/server.js",
     "webpack": "webpack",
     "scss": "npm run scss:build && npm run scss:prefix",
     "scss:build": "node makeImportScss.js && node-sass src/client/scss -r -o css/develop",
@@ -12,7 +12,8 @@
   "dependencies": {
     "normalize.css": "^6.0.0",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "socket.io-client": "^1.7.3"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.7",
