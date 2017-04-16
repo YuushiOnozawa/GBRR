@@ -1,0 +1,18 @@
+@mixin mixinAddNormalize {
+    html {
+        font-size: $baseFontSize;
+    }
+
+    body {
+        margin: 0px;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0px;
+    }
+
+    li {
+        list-style: none;
+    }
+}

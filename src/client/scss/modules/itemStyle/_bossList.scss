@@ -1,0 +1,58 @@
+@mixin mixinBossList {
+    .idLists {
+        min-width: 320px;
+        height: 500px;
+        display: flex;
+        margin: 0px auto;
+        overflow-x: scroll;
+
+        @media screen and (max-width: 420px) {
+            column-count: 1;
+            column-width: 320px;
+        }
+
+        @media screen and (max-width: 730px) {
+            column-count: 2;
+            column-width: 300px;
+        }
+
+        > li {
+            border-right: 2px dotted $listBorderColor;
+            padding: 0px 10px 0px 5px;
+            width: 320px;
+            flex: none;
+        }
+    }
+
+    .idList {
+        width: 100%;
+        display: block;
+        position: relative;
+
+        > li {
+            border-bottom: 2px dotted $listBorderColor;
+        }
+    }
+
+    .bossName {
+        font-size: $fontSize20px;
+        color: $bossNameColor;
+    }
+
+    .timeLeft {
+        font-size: $fontSize12px;
+        color: $subTextColor;
+
+        &::before {
+            content: "----";
+            display: block;
+            position: relative;
+            color: $subTextColor;
+        }
+    }
+
+    .raidId {
+        font-size: $fontSize18px;
+        font-weight: bold;
+    }
+}

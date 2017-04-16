@@ -1,0 +1,11 @@
+{
+  "localPlugin": true,
+  "input"
+  "use": ["autoprefixer", "csso"],
+  "autoprefixer": {
+    "browsers": "> 10%, ie6"
+  },
+  "csso": {
+    "debug": true
+  }
+}

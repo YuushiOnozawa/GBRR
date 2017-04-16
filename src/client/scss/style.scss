@@ -1,12 +1,7 @@
-.textColor {
-    color: red;
-    font-size: 12px;
-}
+@import "_include";
 
-.textColor2 {
-    color: black;
-}
+@include mixinAddNormalize;
+@include mixinHeader;
+@include mixinBossList;
 
-.textColor3 {
-    color: white;
-}
+
