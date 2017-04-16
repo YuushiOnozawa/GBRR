@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "cssnano": "cssnano -h",
     "webpack": "webpack",
-    "scss": "npm run scss:build",
-    "scss:build": "node makeImportScss.js && node-sass src/client/scss -r -o css/interdemite",
-    "scss:postcss": "postcss --use autoprefixer --autoprefixer.browsers '\"last 2 versions\"' -d css/interdemite/ css/interdemite/**/*.css",
-    "scss:csso": "postcss --use cssnano -d css/develop/ css/interdemite/**/*.css"
+    "scss": "npm run scss:build && npm run scss:prefix",
+    "scss:build": "node makeImportScss.js && node-sass src/client/scss -r -o css/develop",
+    "scss:prefix": "postcss --use autoprefixer --autoprefixer.browsers '\"last 2 versions\"' -d css/develop/ css/develop/**/*.css"
   },
   "dependencies": {
     "normalize.css": "^6.0.0",
