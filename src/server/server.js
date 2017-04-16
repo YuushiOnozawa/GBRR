@@ -2,6 +2,7 @@ import fs from 'fs';
 import http from 'http';
 import socket from 'socket.io';
 import ApiKeys from '../../twitterKeys.json';
+// https://github.com/ttezel/twit?
 const twitter = require('twitter');
 
 const client = new twitter({
@@ -22,30 +23,42 @@ server.on('request', (req, res) => {
 
 server.listen(8080);
 
-client.stream('statuses/filter',
-    {track: 'グラブル'},
-    (stream) => {
-        stream.on('data', (text) => {
-            console.log(text);
-        });
+client.get('application/rate_limit_status.json', {q: 'search'}, (err, limit, res) => {
+    console.log(`error: ${err}`);
+    console.log(res);
+});
 
-        stream.on('error', (err) => {
-            console.log(err);
-        });
-    }
-);
+
+
+// client.stream('statuses/filter',
+//     {track: 'グラブル'},
+//     (stream) => {
+//         stream.on('data', (text) => {
+//             console.log(text);
+//         });
+//
+//         stream.on('error', (err) => {
+//             console.log(err);
+//         });
+//     }
+// );
+
+// client.get('/search/tweets.json', {"q":"#Node"}, (err, data) => {
+//     console.log(err);
+//     console.log(data);
+// });
 
 io.sockets.on('connection', (socket) => {
     socket.emit(
         'greeting',
         {message: 'hello'},
         (data) => {
-            console.log(data);
+            console.log(`greet: ${data}`);
         }
     );
 
-    setInterval(() => {
-        console.log(new Date());
-        io.sockets.emit('update', {value: new Date()});
-    }, 10000);
+    // setInterval(() => {
+    //     console.log(new Date());
+    //     io.sockets.emit('update', {value: new Date()});
+    // }, 10000);
 });
