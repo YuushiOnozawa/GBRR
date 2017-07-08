@@ -14,6 +14,13 @@ const client = new twitter({
 
 const server = http.createServer();
 const io = socket.listen(server);
+const searchQuery = '参加者募集！参戦ID';
+const limitMargin = 10;
+let getCount;
+let limitNum;
+let resetTime;
+let getInterval;
+let getTweetTimer;
 
 server.on('request', (req, res) => {
     const stream = fs.createReadStream('index.html', 'utf-8');
@@ -23,23 +30,41 @@ server.on('request', (req, res) => {
 
 server.listen(8080);
 
-//
-client.get('application/rate_limit_status', {resources: 'search'}, (err, limit, res) => {
-    console.log(`error: ${err}`);
-    console.log(limit.resources.search['/search/tweets']);
-});
+function updateLimitCount() {
+    client.get('application/rate_limit_status', {resources: 'search'}, (err, limit, res) => {
+        limitNum = limit.resources.search['/search/tweets'].remaining;
+        resetTime = limit.resources.search['/search/tweets'].reset;
+        getInterval = (resetTime - Date.now()) / (limitNum - limitMargin);
+        console.log(`limitNum: ${limitNum}\nresetTime: ${resetTime}\ninterval: ${getInterval}`);
+    });
+}
 
-client.get('search/tweets', { q: '参加者募集！参戦ID', count: 30 }, (err, data) => {
-    var statuses = data['statuses'];
-    for (var i = statuses.length - 1; i >= 0; i--) {
-        var user_name = statuses[i].user.name;
-        var text = statuses[i].text;
-        console.log(i + ' : ' + user_name + ' > ' + text);
+updateLimitCount();
+
+function getTweet () {
+    if(getCount < limitMargin) {
+        updateLimitCount();
+        clearInterval(getTweetTimer);
+        getTweetTimer = setInterval(getTweet, getInterval);
     }
-});
+
+    client.get('search/tweets', { q: searchQuery, count: 5, result_type: 'mixed', include_entities: true }, (err, data) => {
+        getCount = limitNum - 1;
+        const statuses = data['statuses'];
+        console.log(statuses);
+        for (let i = statuses.length - 1; i >= 0; i--) {
+            let user_name = statuses[i].user.name;
+            let text = statuses[i].text;
+            //console.log(i + ' : ' + user_name + ' > ' + text);
+        }
+    });
+}
+
+getTweetTimer = setInterval(getTweet, getInterval);
+
 
 // stream and search word
-// var stream = client.stream('statuses/filter', {track: '参加者募集！参戦ID'} );
+// var stream = client.stream('statuses/filter', {track: 'node'} );
 //
 // stream.on('tweet', function(tw) {
 //     var text = tw.text;
