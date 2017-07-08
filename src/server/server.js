@@ -34,33 +34,42 @@ function updateLimitCount() {
     client.get('application/rate_limit_status', {resources: 'search'}, (err, limit, res) => {
         limitNum = limit.resources.search['/search/tweets'].remaining;
         resetTime = limit.resources.search['/search/tweets'].reset;
-        getInterval = (resetTime - Date.now()) / (limitNum - limitMargin);
-        console.log(`limitNum: ${limitNum}\nresetTime: ${resetTime}\ninterval: ${getInterval}`);
+        getInterval = Math.round(((resetTime - (Date.now().toString().substr(0, Date.now().toString().length - 3)) ) / (limitNum - limitMargin)) * 1000);
+        console.log(limit.resources.search['/search/tweets']);
+        console.log(`limitNum: ${limitNum}\nresetTime: ${resetTime}\ninterval: ${getInterval}\n now: ${Date.now()}`);
     });
 }
 
 updateLimitCount();
 
 function getTweet () {
+    console.log(`interval: ${getInterval}`);
+    if(!getInterval) {
+        console.log('update');
+        updateLimitCount();
+        getTweetTimer = setInterval(getTweet, getInterval);
+    }
     if(getCount < limitMargin) {
         updateLimitCount();
         clearInterval(getTweetTimer);
         getTweetTimer = setInterval(getTweet, getInterval);
+    } else {
+        client.get('search/tweets', { q: searchQuery, count: 1, result_type: 'mixed', include_entities: true }, (err, data) => {
+            const statuses = data['statuses'];
+            getCount = limitNum - 1;
+            [].forEach.call(statuses, (item) => {
+                console.log(`${item.user.name} > ${item.text}`);
+            });
+            // for (let i = statuses.length - 1; i >= 0; i--) {
+            //     let user_name = statuses[i].user.name;
+            //     let text = statuses[i].text;
+            //     //console.log(i + ' : ' + user_name + ' > ' + text);
+            // }
+        });
     }
-
-    client.get('search/tweets', { q: searchQuery, count: 5, result_type: 'mixed', include_entities: true }, (err, data) => {
-        getCount = limitNum - 1;
-        const statuses = data['statuses'];
-        console.log(statuses);
-        for (let i = statuses.length - 1; i >= 0; i--) {
-            let user_name = statuses[i].user.name;
-            let text = statuses[i].text;
-            //console.log(i + ' : ' + user_name + ' > ' + text);
-        }
-    });
 }
-
-getTweetTimer = setInterval(getTweet, getInterval);
+getTweet()
+// getTweetTimer = setInterval(getTweet, getInterval);
 
 
 // stream and search word
