@@ -34,4 +34,4 @@ js/
 .idea
 css
 *.css
-twitterkeys.json
+twitterkeys.ts

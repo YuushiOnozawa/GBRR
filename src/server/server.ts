@@ -4,7 +4,6 @@ import * as socket from 'socket.io';
 import Apikey from '../../twitterKeys';
 // https://github.com/ttezel/twit?
 const twitter = require('twit');
-
 const client = new twitter({
     consumer_key: Apikey.consumer_key,
     consumer_secret: Apikey.consumer_secret,
