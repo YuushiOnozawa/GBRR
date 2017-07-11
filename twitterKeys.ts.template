@@ -1,0 +1,6 @@
+export namespcase ApiKey{
+    const consumer_key: string = "xxx";
+    const consumer_secret: string = "xxx";
+    const access_token_key: string = "xxx";
+    const access_token_secret: string = "xxx";
+}
