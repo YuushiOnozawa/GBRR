@@ -4,3 +4,4 @@ export namespace ApiKey{
     export const access_token_key: string = "xxx";
     export const access_token_secret: string = "xxx";
 }
+export default ApiKey;
